@@ -1,0 +1,4 @@
+{
+  "python.pythonPath": "/Users/minhcanh99/anaconda/envs/py36/bin/python",
+  "python.linting.pylintArgs": ["--errors-only"]
+}
