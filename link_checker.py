@@ -16,14 +16,14 @@ def link_checker(source, address):
             req.add_header("Authorization", "Basic %s" % AUTH_BASIC)
         resp = urllib.request.urlopen(req)
         if resp.status in [400, 404, 403, 408, 409, 501, 502, 503]:
-            print(Fore.RED + '[' + source +'] ' + resp.status + "-" + resp.reason + "-->" + address + Style.RESET_ALL)
-            ferror.write('[' + source +'] ' + resp.status + "-" + resp.reason + "-->" + address + '\n')
+            print(Fore.RED + '[' + source +'] ' + resp.status + " " + resp.reason + "-->" + address + Style.RESET_ALL)
+            ferror.write('[' + source +'] ' + resp.status + " " + resp.reason + "-->" + address + '\n')
         else:
             print(Fore.GREEN + '[' + source +'] ' + "OK-->" + address + Style.RESET_ALL)
             fok.write('[' + source +'] ' + "OK-->" + address + '\n')
     except Exception as e:
-        print (Fore.RED + '[' + source +'] ' + "Exception-->{}-{}".format(e,address) + Style.RESET_ALL)
-        fexception.write('[' + source +'] ' + "Exception-->{}-{}".format(e,address) + '\n')
+        print (Fore.RED + '[' + source +'] ' + "Exception-->{} {}".format(e,address) + Style.RESET_ALL)
+        fexception.write('[' + source +'] ' + "Exception-->{} {}".format(e,address) + '\n')
         pass
 
 # NORMALIZE URL
@@ -117,6 +117,7 @@ if __name__=="__main__":
         t.start()
     relativeLinks.put(website.strip())
     relativeLinks.join()
+    fvisited.close()
     ferror.close()
     fexception.close()
     fok.close()
