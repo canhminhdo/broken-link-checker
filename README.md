@@ -1,14 +1,14 @@
-# broken-link-checker
-Python script check all broken links in a website
+# Broken Link Checker Python Script
+Python script checks all broken links in a website
 
 # Requirment
-python version is from 3.x
+python version is 3.x
 
 # Setup
 ./setup.sh
 
 # Run
-python check_link.py
+python link_checker.py
 
 # Notes:
 Output:

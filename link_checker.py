@@ -9,7 +9,7 @@ AUTH_BASIC = 'bWFzdGVyOm5ANHVyQGNAcjQ='
 BASE_URL = 'dev.naturacart.com'
 
 # CHECKER MODULE
-def check_link(source, address):
+def link_checker(source, address):
     try:
         req = urllib.request.Request(url=address)
         if address.find(BASE_URL) != -1:
@@ -51,7 +51,7 @@ def normalize_url(a):
         pass
 
 # EXTRACT MODULE
-def extract_link(address):
+def link_extractor(address):
     fvisited.write(address)
     # tags = {'a':'href', 'img':'src', 'script':'src', 'link':'href'}
     try:
@@ -67,25 +67,25 @@ def extract_link(address):
             if link.has_attr('src'):
                 p = normalize_url(link['src'])
                 if p != 0 and str(p) != 'None':
-                    check_link(source=address, address=p)
+                    link_checker(source=address, address=p)
         # ETRACT LINK CSS
         for link in soup.find_all('link'):
             if link.has_attr('href'):
                 p = normalize_url(link['href'])
                 if p != 0 and str(p) != 'None':
-                    check_link(source=address, address=p)
+                    link_checker(source=address, address=p)
         # ETRACT LINK JS
         for link in soup.find_all('script'):
             if link.has_attr('src'):
                 p = normalize_url(link['src'])
                 if p != 0 and str(p) != 'None':
-                    check_link(source=address, address=p)
+                    link_checker(source=address, address=p)
         # ETRACT LINK A
         for link in soup.find_all('a'):
             if link.has_attr('href'):
                 p = normalize_url(link['href'])
                 if p != 0 and str(p) != 'None':
-                    check_link(source=address, address=p)
+                    link_checker(source=address, address=p)
                     if str(p).find(website) != -1 and p not in visitedLinks:
                         visitedLinks.add(p)
                         relativeLinks.put(p)
@@ -96,7 +96,7 @@ def extract_link(address):
 def threader():
     while True:
         value = relativeLinks.get()
-        extract_link(value)
+        link_extractor(value)
         relativeLinks.task_done()
 
 if __name__=="__main__":
@@ -109,9 +109,7 @@ if __name__=="__main__":
     relativeLinks = queue.Queue()
     visitedLinks = set()
 
-    # website=input("Please enter the website address: ")
-    # website = 'http://dev.naturacart.com'
-    website = 'http://manlongdinh.vn'
+    website=input("Please enter the website address: ")
     visitedLinks.add(website)
     for x in range(30):
         t = threading.Thread(target=threader)
