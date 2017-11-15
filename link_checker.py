@@ -133,7 +133,7 @@ if __name__=="__main__":
     visitedLinks = set()
 
     website = input("Please enter the website address: ")
-    # website = 'http://dev.naturacart.com''
+    # website = 'http://dev.naturacart.com'
     # website = 'https://stg.naturacart.com'
     visitedLinks.add(website.strip())
     threadLock = threading.Lock()
@@ -165,5 +165,6 @@ if __name__=="__main__":
     fexception.close()
     fok.close()
 
+    print("ALL DONE !!!")
     # Exit
     sys.exit()
